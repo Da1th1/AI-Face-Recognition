@@ -1,9 +1,11 @@
 import cv2
 
-# load some pre trained data on face data
+# Step 1 Setting up the Face Detector
+
+# load some pre trained data on face data from https://github.com/opencv/opencv/tree/4.x/data/haarcascades
 face = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-## This is Picture
+## This is Static Picture Code
 
 '''
 # image to detect faces in
@@ -32,10 +34,10 @@ cv2.imshow('Clever Programmer Face Detector', img)
 cv2.waitKey()
 '''
 
-## This is Webacm
+## This is Webcam code
 
 # To capture video from webcam
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(0) # one face defaulted to webacam. Add a video path instead.
 
 # Iterate forever over frames
 while True:
@@ -49,14 +51,22 @@ while True:
     face_coordinates = face.detectMultiScale(grayscaled_img)
 
     # draw a green rectangle around face dynamically
-    (x, y, w, h) = face_coordinates[0]
-    cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 2 )
+    for (x, y, w, h) in face_coordinates:
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 2 )
 
     # this will show the image
-    cv2.imshow('Clever Programmer Face Detector', frame)
-    cv2.waitKey(1)
+    cv2.imshow('bobdatcod.e Face Detector', frame)
+    key = cv2.waitKey(1)
     
-    
+    # Stop if 0 key is pressed
+    ''' 81 is the ascii code for q'''
+    if key == 81  or key == 113:
+        break
+
+# Release the VideoCapture object
+webcam.release()
+
+# Step 2 
 
 
 print('Code Completed')
